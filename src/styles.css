@@ -25,7 +25,7 @@ body {
 .weather {
   height: 660px;
   width: 400px;
-  margin-top: 25px;
+  margin-top: 50px;
 }
 
 .btn-outline-secondary {
@@ -79,4 +79,10 @@ body {
 
 .forecast {
   text-align: center;
+}
+
+.github-link {
+    margin-top: 40px;
+    font-size: 13px;
+    text-align: center;
 }
