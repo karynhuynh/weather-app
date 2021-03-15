@@ -32,12 +32,12 @@ dateTime()
 
 const apiKey = '563b8c646e928f0609edc6757e3848c7'
 const apiEndpoint = 'https://api.openweathermap.org/data/2.5/weather?'
+let units = 'metric'
 
 function displayCity(event) {
   event.preventDefault()
   let citySearch = document.querySelector('#city-input')
   let searchedCity = citySearch.value
-  let units = 'metric'
   let cityApiUrl = `${apiEndpoint}q=${searchedCity}&appid=${apiKey}&units=${units}`
 
   axios.get(cityApiUrl).then(getTemperature)
@@ -75,11 +75,9 @@ function getTemperature(response) {
 // current location
 
 function getCoordinates(position) {
-  console.log(position)
   let latitude = Math.round(position.coords.latitude)
   let longitude = Math.round(position.coords.longitude)
   let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`
-  console.log(coordinatesUrl)
 
   axios.get(coordinatesUrl).then(getTemperature)
 }
