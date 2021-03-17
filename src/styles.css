@@ -10,46 +10,49 @@ body {
 
 .weather,
 .main-card {
-  border: 1px solid #dadde1;
   border-radius: 10px;
   display: block;
   margin: 0 auto;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15), 0px 0px 5px rgba(0, 0, 0, 0.15);
-  font-weight: 900;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* .fa-search {
-  color: white;
-} */
-
 .weather {
-  height: 660px;
+  height: 675px;
   width: 400px;
-  margin-top: 50px;
+  margin-top: 33px;
+  border: 1px solid #dadde1;
 }
 
 .btn-outline-secondary {
   padding: 3px 12px;
 }
 
+h2,
+h6,
+.main-card,
+#celsius,
+#fahrenheit {
+  font-weight: bolder;
+  color: #fff;
+}
+
 .main-card {
-  height: 350px;
+  height: 360px;
   width: 330px;
-  margin-top: 20px;
+  margin-top: 25px;
   margin-bottom: 25px;
   text-align: center;
+  background-image: url("https://img.freepik.com/free-photo/cloud-background-with-pastel-colour_66899-1598.jpg?size=626&ext=jpg");
+  /* background-image: url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513') */
+  /* background-image: url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/baby-blue-clouds-susan-bryant.jpg'); */
+  /* background-image: url('https://cdn.shopify.com/s/files/1/0039/3894/3088/products/543896_1024x1024.jpg?v=1571714107'); */
+  /* background-image: url('https://mcpz.net/data/brprofilecover/40467.jpeg?1'); */
+  /* background-image: url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=');  */
 }
 
 #main-card-icon {
   font-size: 110px;
   margin-top: 25px;
-}
-
-.circle {
-  height: 200px;
-  width: 200px;
-  border-radius: 100px;
-  color: lightblue;
 }
 
 .temperature {
@@ -63,13 +66,9 @@ body {
   text-decoration: none;
 }
 
-#celsius {
-  color: #000;
-}
-
 .card-subtitle,
 .main-card-text {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .main-card-text {
@@ -77,12 +76,28 @@ body {
   margin-bottom: 10px;
 }
 
-.forecast {
-  text-align: center;
+.active {
+  cursor: default;
 }
 
-.github-link {
-    margin-top: 40px;
-    font-size: 13px;
-    text-align: center;
+.active:hover {
+  text-decoration: none;
+}
+
+.weather-description {
+  text-transform: capitalize;
+}
+
+#forecast {
+  margin-left: 25px;
+  /* color: #6C757D; */
+}
+
+#forecast-icon {
+  text-align: center;
+  margin-left: 40px;
+}
+
+.maxmin {
+  margin-left: 20px;
 }
