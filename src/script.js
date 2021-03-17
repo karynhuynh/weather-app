@@ -4,13 +4,13 @@ const currentTime = new Date();
 
 function dateTime() {
   let days = [
+    "Sunday",
     "Monday",
     "Tuesday",
     "Wednesday",
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday",
   ];
   let day = days[currentTime.getDay()];
 
@@ -50,6 +50,21 @@ function dateTime() {
 
 dateTime();
 
+function formatDay() {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[currentTime.getDay()];
+
+  return `${day}`;
+}
+
 // Display city and temperature
 // current location
 
@@ -82,11 +97,67 @@ function searchInput(event) {
   let apiUrl = `${apiEndpoint}q=${searchedCity}&appid=${apiKey}&units=${units}`;
 
   axios.get(apiUrl).then(getTemperature);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(getForecast);
 }
 
 let cityInput = document.querySelector("#input-form");
 cityInput.addEventListener("submit", searchInput);
 
+// Forecast information
+
+function getForecast(response) {
+  console.log(response);
+  let forecastSection = document.querySelector(".forecast");
+  forecastSection.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 1; index <= 5; index++) {
+    forecast = response.data.list[index];
+
+    // Forecast icon
+    let weatherID = forecast.weather[0].id;
+    let icon = " ";
+
+    if (weatherID >= 200 && weatherID < 300) {
+      // weather: thunderstorm
+      icon = `<i class="fas fa-bolt"></i>`;
+    } else if (weatherID >= 300 && weatherID < 500) {
+      // weather: drizzle
+      icon = `<i class="fas fa-cloud-showers-heavy"></i>`;
+    } else if (weatherID <= 500 && weatherID < 600) {
+      // weather: rain
+      icon = `<i class="fas fa-cloud-rain"></i>`;
+    } else if (weatherID <= 600 && weatherID < 700) {
+      // weather: snow
+      icon = `<i class="far fa-snowflake"></i>`;
+    } else if (weatherID <= 700 && weatherID < 800) {
+      // weather: atmosphere
+      icon = `<i class="fas fa-smog"></i>`;
+    } else if (weatherID === 800) {
+      // weather: clear
+      icon = `<i class="fas fa-sun"></i>`;
+    } else if (weatherID >= 800) {
+      // weather: clouds
+      icon = `<i class="fas fa-cloud"></i>`;
+    }
+
+    forecastSection.innerHTML += `<div class="row">
+            <div class="col">
+              <p class="day">${formatDay(forecast.dt * 1000)}</p>
+            </div>
+            <div class="col forecast-icon">
+              ${icon}
+            </div>
+            <div class="col">
+              <p class="maxmin">${Math.round(
+                forecast.main.temp_max
+              )}° / ${Math.round(forecast.main.temp_min)}°</p>
+            </div>
+          </div>`;
+  }
+}
 // Temperature information
 
 function getTemperature(response) {
@@ -111,6 +182,9 @@ function getTemperature(response) {
   windSpeed.innerHTML = `${wind}`;
 
   celciusTemperature = response.data.main.temp;
+
+  //Main Icon
+  
 }
 
 //Convert celsius to fahrenheit
