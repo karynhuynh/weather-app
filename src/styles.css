@@ -88,16 +88,15 @@ h6,
   text-transform: capitalize;
 }
 
-#forecast {
+.day {
   margin-left: 25px;
-  /* color: #6C757D; */
 }
 
-#forecast-icon {
+.forecast-icon {
   text-align: center;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 
 .maxmin {
-  margin-left: 20px;
+  margin-left: 15px;
 }
