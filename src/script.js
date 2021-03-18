@@ -17,9 +17,7 @@ function dateTime() {
     "December",
   ];
   let month = months[currentTime.getMonth()];
-
   let date = currentTime.getDate();
-
   let year = currentTime.getFullYear();
 
   let hour = currentTime.getHours();
@@ -96,12 +94,12 @@ cityInput.addEventListener("submit", searchInput);
 // Forecast information
 
 function getForecast(response) {
-  // console.log(response);
+  console.log(response);
   let forecastSection = document.querySelector(".forecast");
   forecastSection.innerHTML = null;
   let forecast = null;
 
-  for (let index = 1; index <= 5; index++) {
+  for (let index = 1; index < 6; index++) {
     forecast = response.data.list[index];
 
     // Forecast icon
@@ -133,17 +131,19 @@ function getForecast(response) {
 
     forecastSection.innerHTML += `<div class="row">
             <div class="col">
-              <p class="day">${formatDay(forecast.dt * 1000)}</p>
+              <p class="day">${formatDay(forecast.dt)}</p>
             </div>
             <div class="col forecast-icon">
               ${icon}
             </div>
             <div class="col">
-              <p class="maxmin">${Math.round(
-                forecast.main.temp_max
-              )}° / ${Math.round(forecast.main.temp_min)}°</p>
-            </div>
-          </div>`;
+              <p class="maxmin">
+                <span class="max">${Math.round(
+                  forecast.main.temp_max
+                )}°</span> / 
+                <span class="min">${Math.round(forecast.main.temp_min)}°</span>
+              </p>
+            </div>`;
   }
 }
 // Temperature information
@@ -153,7 +153,7 @@ function getTemperature(response) {
   let cityName = document.querySelector("h2");
   cityName.innerHTML = `${city}`;
 
-  let temperature = Math.round(celciusTemperature);
+  let temperature = Math.round(celsiusTemperature);
   let mainDegree = document.querySelector(".temperature");
   mainDegree.innerHTML = `${temperature}`;
 
@@ -169,7 +169,7 @@ function getTemperature(response) {
   let windSpeed = document.querySelector(".wind-speed");
   windSpeed.innerHTML = `${wind}`;
 
-  celciusTemperature = response.data.main.temp;
+  celsiusTemperature = response.data.main.temp;
 
   // Main Icon and Card Background
   let mainCard = document.querySelector(".main-card");
@@ -214,25 +214,27 @@ function getTemperature(response) {
   }
 }
 
-//Convert celsius to fahrenheit
+//Convert celsius to fahrenheit-main card
 
-let celciusTemperature = null;
+let celsiusTemperature = null;
 
 function convertToFahrenheit(event) {
   event.preventDefault();
-  let fTemperature = Math.round(celciusTemperature * (9 / 5) + 32);
+  let fTemperature = Math.round(celsiusTemperature * (9 / 5) + 32);
   let displayTemperature = document.querySelector(".temperature");
   // remove the active class from the celsius link:
   celsiusLink.classList.remove("active");
   // add the active class to the fahrenheit link:
   fahrenheitLink.classList.add("active");
   displayTemperature.innerHTML = fTemperature;
+
+  convertForecastTemp("fahrenheit");
 }
 
 let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
-// Convert fahrenheit to celsius
+// Convert fahrenheit to celsius-main card
 
 function convertToCelsius(event) {
   event.preventDefault();
@@ -241,8 +243,35 @@ function convertToCelsius(event) {
   celsiusLink.classList.add("active");
   // remove the active class to the fahrenheit link:
   fahrenheitLink.classList.remove("active");
-  displayTemperature.innerHTML = Math.round(celciusTemperature);
+  displayTemperature.innerHTML = Math.round(celsiusTemperature);
+
+  convertForecastTemp("celsius");
 }
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", convertToCelsius);
+
+// Convert forecast max and min temp
+
+function convertForecastTemp(unit) {
+  if (unit === "celsius") {
+    document.querySelectorAll(".max").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML;
+      temperature.innerHTML = Math.round(currentTemperature * (5 / 9) - 32);
+    });
+    document.querySelectorAll(".min").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML;
+      temperature.innerHTML = Math.round(currentTemperature * (5 / 9) - 32);
+    });
+  } else {
+    document.querySelectorAll(".max").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML;
+      temperature.innerHTML = Math.round(currentTemperature * (9 / 5) + 32);
+    });
+    document.querySelectorAll(".min").forEach(function (temperature) {
+      let currentTemperature = temperature.innerHTML;
+      temperature.innerHTML = Math.round(currentTemperature * (9 / 5) + 32);
+    });
+  }
+}
+
