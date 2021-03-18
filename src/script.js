@@ -47,7 +47,6 @@ function formatDay() {
     "Saturday",
   ];
   let day = days[currentTime.getDay()];
-
   return `${day}`;
 }
 
@@ -56,12 +55,11 @@ function formatDay() {
 
 const apiKey = "563b8c646e928f0609edc6757e3848c7";
 const apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
-let units = "metric";
 
 function getCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
   axios.get(coordinatesUrl).then(getTemperature);
 }
@@ -80,11 +78,11 @@ function searchInput(event) {
   event.preventDefault();
   let citySearch = document.querySelector("#city-input");
   let searchedCity = citySearch.value;
-  let apiUrl = `${apiEndpoint}q=${searchedCity}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `${apiEndpoint}q=${searchedCity}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(getTemperature);
 
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=${units}`;
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getForecast);
 }
 
@@ -140,8 +138,8 @@ function getForecast(response) {
               <p class="maxmin">
                 <span class="max">${Math.round(
                   forecast.main.temp_max
-                )}°</span> / 
-                <span class="min">${Math.round(forecast.main.temp_min)}°</span>
+                )}</span>° / 
+                <span class="min">${Math.round(forecast.main.temp_min)}</span>°
               </p>
             </div>`;
   }
@@ -229,10 +227,10 @@ function convertToFahrenheit(event) {
   displayTemperature.innerHTML = fTemperature;
 
   convertForecastTemp("fahrenheit");
-}
 
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
+  celsiusLink.addEventListener("click", convertToCelsius);
+  fahrenheitLink.removeEventListener("click", convertToFahrenheit);
+}
 
 // Convert fahrenheit to celsius-main card
 
@@ -246,10 +244,10 @@ function convertToCelsius(event) {
   displayTemperature.innerHTML = Math.round(celsiusTemperature);
 
   convertForecastTemp("celsius");
-}
 
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
+  celsiusLink.removeEventListener("click", convertToCelsius);
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
+}
 
 // Convert forecast max and min temp
 
@@ -275,3 +273,8 @@ function convertForecastTemp(unit) {
   }
 }
 
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
