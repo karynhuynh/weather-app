@@ -1,19 +1,7 @@
 // Display date and time
-
 const currentTime = new Date();
 
 function dateTime() {
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[currentTime.getDay()];
-
   let months = [
     "January",
     "February",
@@ -45,7 +33,7 @@ function dateTime() {
   }
 
   let dateTimeSentence = document.querySelector("h6");
-  dateTimeSentence.innerHTML = `${day}, ${month} ${date}, ${year} on ${hour}:${minutes}`;
+  dateTimeSentence.innerHTML = `${formatDay()}, ${month} ${date}, ${year} on ${hour}:${minutes}`;
 }
 
 dateTime();
@@ -108,7 +96,7 @@ cityInput.addEventListener("submit", searchInput);
 // Forecast information
 
 function getForecast(response) {
-  console.log(response);
+  // console.log(response);
   let forecastSection = document.querySelector(".forecast");
   forecastSection.innerHTML = null;
   let forecast = null;
@@ -183,8 +171,32 @@ function getTemperature(response) {
 
   celciusTemperature = response.data.main.temp;
 
-  //Main Icon
-  
+  // Main Icon
+  let mainIcon = document.querySelector("#main-card-icon");
+  let weatherID = response.data.weather[0].id;
+
+  if (weatherID >= 200 && weatherID < 300) {
+    // weather: thunderstorm
+    mainIcon.setAttribute("class", "fas fa-bolt");
+  } else if (weatherID >= 300 && weatherID < 500) {
+    // weather: drizzle
+    mainIcon.setAttribute("class", "fas fa-cloud-showers-heavy");
+  } else if (weatherID <= 500 && weatherID < 600) {
+    // weather: rain
+    mainIcon.setAttribute("class", "fas fa-cloud-rain");
+  } else if (weatherID <= 600 && weatherID < 700) {
+    // weather: snow
+    mainIcon.setAttribute("class", "far fa-snowflake");
+  } else if (weatherID <= 700 && weatherID < 800) {
+    // weather: atmosphere
+    mainIcon.setAttribute("class", "fas fa-smog");
+  } else if (weatherID === 800) {
+    // weather: clear
+    mainIcon.setAttribute("class", "fas fa-sun");
+  } else if (weatherID >= 800) {
+    // weather: clouds
+    mainIcon.setAttribute("click", "fas fa-cloud");
+  }
 }
 
 //Convert celsius to fahrenheit
