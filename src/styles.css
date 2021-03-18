@@ -80,6 +80,11 @@ h6,
   text-decoration: none;
 }
 
+#celsius,
+#fahrenheit {
+  text-decoration: none;
+}
+
 .weather-description {
   text-transform: capitalize;
 }

@@ -1,7 +1,7 @@
 // Display date and time
-const currentTime = new Date();
 
 function dateTime() {
+  let currentTime = new Date();
   let months = [
     "January",
     "February",
@@ -37,6 +37,7 @@ function dateTime() {
 dateTime();
 
 function formatDay() {
+  let currentTime = new Date();
   let days = [
     "Sunday",
     "Monday",
@@ -55,13 +56,23 @@ function formatDay() {
 
 const apiKey = "563b8c646e928f0609edc6757e3848c7";
 const apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+let units = "metric";
 
 function getCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
 
+  let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(coordinatesUrl).then(getTemperature);
+
+  coordinatesUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  axios.get(coordinatesUrl).then(getForecast);
+
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+
+  celsiusLink.removeEventListener("click", convertToCelsius);
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
 function getNavigator(event) {
@@ -82,8 +93,14 @@ function searchInput(event) {
 
   axios.get(apiUrl).then(getTemperature);
 
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=metric`;
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(getForecast);
+
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+
+  celsiusLink.removeEventListener("click", convertToCelsius);
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
 let cityInput = document.querySelector("#input-form");
@@ -144,6 +161,7 @@ function getForecast(response) {
             </div>`;
   }
 }
+
 // Temperature information
 
 function getTemperature(response) {
@@ -175,37 +193,30 @@ function getTemperature(response) {
   let weatherID = response.data.weather[0].id;
 
   if (weatherID >= 200 && weatherID < 300) {
-    // weather: thunderstorm
     mainIcon.setAttribute("class", "fas fa-bolt");
     mainCard.style.backgroundImage =
       "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID >= 300 && weatherID < 500) {
-    // weather: drizzle
     mainIcon.setAttribute("class", "fas fa-cloud-showers-heavy");
     mainCard.style.backgroundImage =
       "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID <= 500 && weatherID < 600) {
-    // weather: rain
     mainIcon.setAttribute("class", "fas fa-cloud-rain");
     mainCard.style.backgroundImage =
       "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID <= 600 && weatherID < 700) {
-    // weather: snow
     mainIcon.setAttribute("class", "far fa-snowflake");
     mainCard.style.backgroundImage =
       "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID <= 700 && weatherID < 800) {
-    // weather: atmosphere
     mainIcon.setAttribute("class", "fas fa-smog");
     mainCard.style.backgroundImage =
       "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID === 800) {
-    // weather: clear
     mainIcon.setAttribute("class", "fas fa-sun");
     mainCard.style.backgroundImage =
       "url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/baby-blue-clouds-susan-bryant.jpg')";
   } else if (weatherID >= 800) {
-    // weather: clouds
     mainIcon.setAttribute("click", "fas fa-cloud");
     mainCard.style.backgroundImage =
       "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
@@ -250,6 +261,8 @@ function convertToCelsius(event) {
 }
 
 // Convert forecast max and min temp
+
+let celsius = null;
 
 function convertForecastTemp(unit) {
   if (unit === "celsius") {
