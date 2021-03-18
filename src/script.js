@@ -171,31 +171,46 @@ function getTemperature(response) {
 
   celciusTemperature = response.data.main.temp;
 
-  // Main Icon
+  // Main Icon and Card Background
+  let mainCard = document.querySelector(".main-card");
   let mainIcon = document.querySelector("#main-card-icon");
   let weatherID = response.data.weather[0].id;
 
   if (weatherID >= 200 && weatherID < 300) {
     // weather: thunderstorm
     mainIcon.setAttribute("class", "fas fa-bolt");
+    mainCard.style.backgroundImage =
+      "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID >= 300 && weatherID < 500) {
     // weather: drizzle
     mainIcon.setAttribute("class", "fas fa-cloud-showers-heavy");
+    mainCard.style.backgroundImage =
+      "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID <= 500 && weatherID < 600) {
     // weather: rain
     mainIcon.setAttribute("class", "fas fa-cloud-rain");
+    mainCard.style.backgroundImage =
+      "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
   } else if (weatherID <= 600 && weatherID < 700) {
     // weather: snow
     mainIcon.setAttribute("class", "far fa-snowflake");
+    mainCard.style.backgroundImage =
+      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID <= 700 && weatherID < 800) {
     // weather: atmosphere
     mainIcon.setAttribute("class", "fas fa-smog");
+    mainCard.style.backgroundImage =
+      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID === 800) {
     // weather: clear
     mainIcon.setAttribute("class", "fas fa-sun");
+    mainCard.style.backgroundImage =
+      "url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/baby-blue-clouds-susan-bryant.jpg')";
   } else if (weatherID >= 800) {
     // weather: clouds
     mainIcon.setAttribute("click", "fas fa-cloud");
+    mainCard.style.backgroundImage =
+      "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
   }
 }
 
