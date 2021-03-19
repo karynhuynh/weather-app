@@ -169,6 +169,7 @@ function getTemperature(response) {
   let cityName = document.querySelector("h2");
   cityName.innerHTML = `${city}`;
 
+  celsiusTemperature = response.data.main.temp;
   let temperature = Math.round(celsiusTemperature);
   let mainDegree = document.querySelector(".temperature");
   mainDegree.innerHTML = `${temperature}`;
@@ -184,8 +185,6 @@ function getTemperature(response) {
   let wind = response.data.wind.speed;
   let windSpeed = document.querySelector(".wind-speed");
   windSpeed.innerHTML = `${wind}`;
-
-  celsiusTemperature = response.data.main.temp;
 
   // Main Icon and Card Background
   let mainCard = document.querySelector(".main-card");
@@ -268,20 +267,20 @@ function convertForecastTemp(unit) {
   if (unit === "celsius") {
     document.querySelectorAll(".max").forEach(function (temperature) {
       let currentTemperature = temperature.innerHTML;
-      temperature.innerHTML = Math.round(currentTemperature * (5 / 9) - 32);
+      temperature.innerHTML = Math.round(((currentTemperature - 32) * 5) / 9);
     });
     document.querySelectorAll(".min").forEach(function (temperature) {
       let currentTemperature = temperature.innerHTML;
-      temperature.innerHTML = Math.round(currentTemperature * (5 / 9) - 32);
+      temperature.innerHTML = Math.round(((currentTemperature - 32) * 5) / 9);
     });
   } else {
     document.querySelectorAll(".max").forEach(function (temperature) {
       let currentTemperature = temperature.innerHTML;
-      temperature.innerHTML = Math.round(currentTemperature * (9 / 5) + 32);
+      temperature.innerHTML = Math.round((currentTemperature * 9) / 5 + 32);
     });
     document.querySelectorAll(".min").forEach(function (temperature) {
       let currentTemperature = temperature.innerHTML;
-      temperature.innerHTML = Math.round(currentTemperature * (9 / 5) + 32);
+      temperature.innerHTML = Math.round((currentTemperature * 9) / 5 + 32);
     });
   }
 }
