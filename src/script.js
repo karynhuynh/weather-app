@@ -1,31 +1,15 @@
 // Display date and time
-
 function dateTime() {
-  let currentTime = new Date();
-  let months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  let month = months[currentTime.getMonth()];
-  let date = currentTime.getDate();
-  let year = currentTime.getFullYear();
-
-  let hour = currentTime.getHours();
+  let now = new Date();
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let month = months[now.getMonth()];
+  let date = now.getDate();
+  let year = now.getFullYear();
+  let hour = now.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
   }
-
-  let minutes = currentTime.getMinutes();
+  let minutes = now.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
@@ -37,35 +21,28 @@ function dateTime() {
 dateTime();
 
 function formatDay() {
-  let currentTime = new Date();
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[currentTime.getDay()];
+  let now = new Date();
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let day = days[now.getDay()];
   return `${day}`;
 }
 
 // Display city and temperature
-// current location
 
 const apiKey = "563b8c646e928f0609edc6757e3848c7";
-const apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+const apiEndpoint = "https://api.openweathermap.org/data/2.5/";
 let units = "metric";
+
+// search by coordinates
 
 function getCoordinates(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
 
-  let coordinatesUrl = `${apiEndpoint}lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  let coordinatesUrl = `${apiEndpoint}weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(coordinatesUrl).then(getTemperature);
 
-  coordinatesUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
+  coordinatesUrl = `${apiEndpoint}forecast?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
   axios.get(coordinatesUrl).then(getForecast);
 
   celsiusLink.classList.add("active");
@@ -73,6 +50,8 @@ function getCoordinates(position) {
 
   celsiusLink.removeEventListener("click", convertToCelsius);
   fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+  forecastDays(latitude, longitude)
 }
 
 function getNavigator(event) {
@@ -83,17 +62,16 @@ function getNavigator(event) {
 let currentLocation = document.querySelector("#current-location-button");
 currentLocation.addEventListener("click", getNavigator);
 
-// Search for the city
+// Search by city
 
 function searchInput(event) {
   event.preventDefault();
   let citySearch = document.querySelector("#city-input");
   let searchedCity = citySearch.value;
-  let apiUrl = `${apiEndpoint}q=${searchedCity}&appid=${apiKey}&units=metric`;
-
+  let apiUrl = `${apiEndpoint}weather?q=${searchedCity}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(getTemperature);
 
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${searchedCity}&appid=${apiKey}&units=${units}`;
+  apiUrl = `${apiEndpoint}forecast?q=${searchedCity}&appid=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(getForecast);
 
   celsiusLink.classList.add("active");
@@ -105,62 +83,6 @@ function searchInput(event) {
 
 let cityInput = document.querySelector("#input-form");
 cityInput.addEventListener("submit", searchInput);
-
-// Forecast information
-
-function getForecast(response) {
-  console.log(response);
-  let forecastSection = document.querySelector(".forecast");
-  forecastSection.innerHTML = null;
-  let forecast = null;
-
-  for (let index = 1; index < 6; index++) {
-    forecast = response.data.list[index];
-
-    // Forecast icon
-    let weatherID = forecast.weather[0].id;
-    let icon = " ";
-
-    if (weatherID >= 200 && weatherID < 300) {
-      // weather: thunderstorm
-      icon = `<i class="fas fa-bolt"></i>`;
-    } else if (weatherID >= 300 && weatherID < 500) {
-      // weather: drizzle
-      icon = `<i class="fas fa-cloud-showers-heavy"></i>`;
-    } else if (weatherID <= 500 && weatherID < 600) {
-      // weather: rain
-      icon = `<i class="fas fa-cloud-rain"></i>`;
-    } else if (weatherID <= 600 && weatherID < 700) {
-      // weather: snow
-      icon = `<i class="far fa-snowflake"></i>`;
-    } else if (weatherID <= 700 && weatherID < 800) {
-      // weather: atmosphere
-      icon = `<i class="fas fa-smog"></i>`;
-    } else if (weatherID === 800) {
-      // weather: clear
-      icon = `<i class="fas fa-sun"></i>`;
-    } else if (weatherID >= 800) {
-      // weather: clouds
-      icon = `<i class="fas fa-cloud"></i>`;
-    }
-
-    forecastSection.innerHTML += `<div class="row">
-            <div class="col">
-              <p class="day">${formatDay(forecast.dt)}</p>
-            </div>
-            <div class="col forecast-icon">
-              ${icon}
-            </div>
-            <div class="col">
-              <p class="maxmin">
-                <span class="max">${Math.round(
-                  forecast.main.temp_max
-                )}</span>° / 
-                <span class="min">${Math.round(forecast.main.temp_min)}</span>°
-              </p>
-            </div>`;
-  }
-}
 
 // Temperature information
 
@@ -219,6 +141,70 @@ function getTemperature(response) {
     mainIcon.setAttribute("click", "fas fa-cloud");
     mainCard.style.backgroundImage =
       "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
+  }
+
+  let longitude = response.data.coord.lon;
+  let latitude = response.data.coord.lat;
+  forecastDays(latitude, longitude);
+}
+
+// Forecast information
+
+function forecastDays(latitude, longitude) {
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=${units}`
+  axios.get(forecastUrl).then(getForecast)
+}
+
+function getForecast(response) {
+  let forecastSection = document.querySelector(".forecast");
+  forecastSection.innerHTML = null;
+  let forecast = null;
+
+  for (let i = 1; i < 6; i ++) {
+    forecast = response.data.daily[i];
+
+    // Forecast icon
+    let weatherID = forecast.weather[0].id;
+    let icon = "";
+
+    if (weatherID >= 200 && weatherID < 300) {
+      // weather: thunderstorm
+      icon = `<i class="fas fa-bolt"></i>`;
+    } else if (weatherID >= 300 && weatherID < 500) {
+      // weather: drizzle
+      icon = `<i class="fas fa-cloud-showers-heavy"></i>`;
+    } else if (weatherID <= 500 && weatherID < 600) {
+      // weather: rain
+      icon = `<i class="fas fa-cloud-rain"></i>`;
+    } else if (weatherID <= 600 && weatherID < 700) {
+      // weather: snow
+      icon = `<i class="far fa-snowflake"></i>`;
+    } else if (weatherID <= 700 && weatherID < 800) {
+      // weather: atmosphere
+      icon = `<i class="fas fa-smog"></i>`;
+    } else if (weatherID === 800) {
+      // weather: clear
+      icon = `<i class="fas fa-sun"></i>`;
+    } else if (weatherID >= 800) {
+      // weather: clouds
+      icon = `<i class="fas fa-cloud"></i>`;
+    }
+
+    forecastSection.innerHTML += 
+          `<div class="row">
+            <div class="col">
+              <p class="day">${formatDay(forecast.dt * 1000)}</p>
+            </div>
+            <div class="col forecast-icon">
+              ${icon}
+            </div>
+            <div class="col">
+              <p class="maxmin">
+                <span class="max">${Math.round(forecast.temp.max)}</span>° / 
+                <span class="min">${Math.round(forecast.temp.min)}</span>°
+              </p>
+            </div>
+          </div>`;
   }
 }
 
