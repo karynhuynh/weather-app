@@ -1,32 +1,61 @@
 // Display date and time
 
 function dateTime() {
-  let now = new Date()
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let day = days[now.getDay()]
-  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  let month = months[now.getMonth()]
-  let date = now.getDate()
-  let year = now.getFullYear()
-  let hour = now.getHours()
-  if(hour < 10) {
-    hour = `0${hour}`
+  let now = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
+  let date = now.getDate();
+  let year = now.getFullYear();
+  let hour = now.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
   }
-  let minutes = now.getMinutes()
-  if(minutes < 10) {
-    minutes = `0${minutes}`
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
 
-  let dateTimeSentence = document.querySelector('h6')
-  dateTimeSentence.innerHTML = `${day}, ${month} ${date}, ${year} on ${hour}:${minutes}`
+  let dateTimeSentence = document.querySelector("h6");
+  dateTimeSentence.innerHTML = `${day}, ${month} ${date}, ${year} on ${hour}:${minutes}`;
 }
 
 dateTime();
 
-function formatDays (timestamp) {
+function formatDays(timestamp) {
   let now = new Date(timestamp);
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let day = days [now.getDay()];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
   return `${day}`;
 }
 
@@ -62,7 +91,7 @@ function getTemperature(response) {
   if (weatherID >= 200 && weatherID < 300) {
     mainIcon.setAttribute("class", "fas fa-bolt");
     mainCard.style.backgroundImage =
-      "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
+      "url('https://c.pxhere.com/photos/20/2d/flash_sky_clouds_energy_thunderstorm_night_flash_of_lightning_storm-659188.jpg!d')";
   } else if (weatherID >= 300 && weatherID < 500) {
     mainIcon.setAttribute("class", "fas fa-cloud-showers-heavy");
     mainCard.style.backgroundImage =
@@ -70,7 +99,7 @@ function getTemperature(response) {
   } else if (weatherID <= 500 && weatherID < 600) {
     mainIcon.setAttribute("class", "fas fa-cloud-rain");
     mainCard.style.backgroundImage =
-      "url('https://media.istockphoto.com/photos/rain-cloud-picture-id1089986346?k=6&m=1089986346&s=612x612&w=0&h=P6askeRKjcgdcKRysKkg2xu6zy4TeIhXwSgq72mSyB8=')";
+      "url('https://image.freepik.com/free-photo/stormy-sky-with-dark-clouds-rain-clouds-sky-rainy-weather_141856-413.jpg')";
   } else if (weatherID <= 600 && weatherID < 700) {
     mainIcon.setAttribute("class", "far fa-snowflake");
     mainCard.style.backgroundImage =
@@ -101,17 +130,16 @@ const apiEndpoint = "https://api.openweathermap.org/data/2.5/";
 let units = "metric";
 
 function forecastDays(latitude, longitude) {
-  let forecastUrl = `${apiEndpoint}onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=${units}`
-  axios.get(forecastUrl).then(getForecast)
+  let forecastUrl = `${apiEndpoint}onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${apiKey}&units=${units}`;
+  axios.get(forecastUrl).then(getForecast);
 }
 
 function getForecast(response) {
-  console.log(response)
   let forecastSection = document.querySelector(".forecast");
   forecastSection.innerHTML = null;
   let forecast = null;
 
-  for (let index = 1; index < 6; index ++) {
+  for (let index = 1; index < 6; index++) {
     forecast = response.data.daily[index];
 
     // Forecast icon
@@ -141,8 +169,7 @@ function getForecast(response) {
       icon = `<i class="fas fa-cloud"></i>`;
     }
 
-    forecastSection.innerHTML += 
-          `<div class="row">
+    forecastSection.innerHTML += `<div class="row">
             <div class="col">
               <p class="day">${formatDays(forecast.dt * 1000)} </p>
             </div>
@@ -175,8 +202,8 @@ function search(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input");
-  search(city.value)
-}  
+  search(city.value);
+}
 
 let form = document.querySelector("#input-form");
 form.addEventListener("submit", handleSubmit);
@@ -250,8 +277,8 @@ function convertToCelsius(event) {
 let celsius = null;
 
 function convertForecastTemp(unit) {
-  let maxTemperature = document.querySelectorAll('.max')
-  let minTemperature = document.querySelectorAll('.min')
+  let maxTemperature = document.querySelectorAll(".max");
+  let minTemperature = document.querySelectorAll(".min");
 
   if (unit === "celsius") {
     maxTemperature.forEach(function (temperature) {
