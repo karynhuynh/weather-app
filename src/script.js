@@ -1,29 +1,32 @@
 // Display date and time
-const now = new Date();
 
 function dateTime() {
+  let now = new Date()
+  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let day = days[now.getDay()]
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  let month = months[now.getMonth()];
-  let date = now.getDate();
-  let year = now.getFullYear();
-  let hour = now.getHours();
-  if (hour < 10) {
-    hour = `0${hour}`;
+  let month = months[now.getMonth()]
+  let date = now.getDate()
+  let year = now.getFullYear()
+  let hour = now.getHours()
+  if(hour < 10) {
+    hour = `0${hour}`
   }
-  let minutes = now.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
+  let minutes = now.getMinutes()
+  if(minutes < 10) {
+    minutes = `0${minutes}`
   }
 
-  let dateTimeSentence = document.querySelector("h6");
-  dateTimeSentence.innerHTML = `${formatDay()}, ${month} ${date}, ${year} on ${hour}:${minutes}`;
+  let dateTimeSentence = document.querySelector('h6')
+  dateTimeSentence.innerHTML = `${day}, ${month} ${date}, ${year} on ${hour}:${minutes}`
 }
 
 dateTime();
 
-function formatDay() {
+function formatDays (timestamp) {
+  let now = new Date(timestamp);
   let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  let day = days[now.getDay()];
+  let day = days [now.getDay()];
   return `${day}`;
 }
 
@@ -108,7 +111,7 @@ function getForecast(response) {
   forecastSection.innerHTML = null;
   let forecast = null;
 
-  for (let index = 5; index < 9; index ++) {
+  for (let index = 1; index < 6; index ++) {
     forecast = response.data.daily[index];
 
     // Forecast icon
@@ -141,7 +144,7 @@ function getForecast(response) {
     forecastSection.innerHTML += 
           `<div class="row">
             <div class="col">
-              <p class="day">${formatDay(forecast.dt)}</p>
+              <p class="day">${formatDays(forecast.dt * 1000)} </p>
             </div>
             <div class="col forecast-icon">
               ${icon}
@@ -276,4 +279,3 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 
 let celsiusLink = document.querySelector("#celsius");
 celsiusLink.addEventListener("click", convertToCelsius);
-

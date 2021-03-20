@@ -19,7 +19,7 @@ body {
 .weather {
   height: 675px;
   width: 400px;
-  margin-top: 33px;
+  margin-top: 25px;
   border: 1px solid #dadde1;
 }
 
@@ -87,14 +87,15 @@ h6,
 }
 
 .day {
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 .forecast-icon {
   text-align: center;
-  margin-left: 20px;
+  margin-left: 15px;
+  font-size: larger;
 }
 
 .maxmin {
-  margin-left: 25px;
+  margin-left: 27px;
 }
