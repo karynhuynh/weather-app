@@ -59,6 +59,20 @@ function formatDays(timestamp) {
   return `${day}`;
 }
 
+function formatTime(timestamp) {
+  let now = new Date(timestamp);
+  let hour = now.getHours();
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${hour}:${minutes}`;
+}
+
 // Display temperature
 
 function getTemperature(response) {
@@ -82,6 +96,14 @@ function getTemperature(response) {
   let wind = Math.round(response.data.wind.speed);
   let windSpeed = document.querySelector(".wind-speed");
   windSpeed.innerHTML = `${wind}`;
+
+  let sunrise = response.data.sys.sunrise;
+  let sunriseTime = document.querySelector(".sunrise");
+  sunriseTime.innerHTML = formatTime(sunrise * 1000);
+
+  let sunset = response.data.sys.sunset;
+  let sunsetTime = document.querySelector(".sunset");
+  sunsetTime.innerHTML = formatTime(sunset * 1000);
 
   // Main Icon and Card Background
   let mainCard = document.querySelector(".main-card");

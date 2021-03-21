@@ -17,9 +17,9 @@ body {
 }
 
 .weather {
-  height: 675px;
+  height: 685px;
   width: 400px;
-  margin-top: 25px;
+  margin-top: 15px;
   border: 1px solid #dadde1;
 }
 
@@ -31,27 +31,35 @@ h2,
 h6,
 .main-card,
 #celsius,
-#fahrenheit {
+#fahrenheit,
+.sunrise,
+.sunset {
   font-weight: bolder;
   color: #fff;
 }
 
+h2,
+h6 {
+  text-align: center;
+}
+
 .main-card {
-  height: 360px;
+  height: 365px;
   width: 330px;
   margin-top: 25px;
   margin-bottom: 25px;
-  text-align: center;
   background-image: url("https://img.freepik.com/free-photo/cloud-background-with-pastel-colour_66899-1598.jpg?size=626&ext=jpg");
 }
 
 #main-card-icon {
   font-size: 110px;
   margin-top: 30px;
+  margin-left: 85px;
 }
 
 .temperature {
   font-size: 27px;
+  margin-left: 110px;
 }
 
 .units {
@@ -68,8 +76,7 @@ h6,
 }
 
 .main-card-text {
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin: 10px 0px 0px 20px;
 }
 
 .active {
