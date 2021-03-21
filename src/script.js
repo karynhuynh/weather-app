@@ -79,7 +79,7 @@ function getTemperature(response) {
   let humidityPercentage = document.querySelector(".humidity-percentage");
   humidityPercentage.innerHTML = `${humidity}`;
 
-  let wind = response.data.wind.speed;
+  let wind = Math.round(response.data.wind.speed);
   let windSpeed = document.querySelector(".wind-speed");
   windSpeed.innerHTML = `${wind}`;
 
