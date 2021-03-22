@@ -125,11 +125,11 @@ function getTemperature(response) {
   } else if (weatherID <= 600 && weatherID < 700) {
     mainIcon.setAttribute("class", "far fa-snowflake");
     mainCard.style.backgroundImage =
-      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
+      "url('https://i.pinimg.com/originals/2e/34/bc/2e34bc8d1d833ad0bee25f7e276c59cb.jpg')";
   } else if (weatherID <= 700 && weatherID < 800) {
     mainIcon.setAttribute("class", "fas fa-smog");
     mainCard.style.backgroundImage =
-      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
+      "url('https://i.pinimg.com/originals/2e/34/bc/2e34bc8d1d833ad0bee25f7e276c59cb.jpg')";
   } else if (weatherID === 800) {
     mainIcon.setAttribute("class", "fas fa-sun");
     mainCard.style.backgroundImage =
