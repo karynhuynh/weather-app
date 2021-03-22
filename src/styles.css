@@ -17,7 +17,7 @@ body {
 }
 
 .weather {
-  height: 685px;
+  height: 690px;
   width: 400px;
   margin-top: 15px;
   border: 1px solid #dadde1;
@@ -34,19 +34,18 @@ h6,
 #fahrenheit,
 .sunrise,
 .sunset {
-  font-weight: bolder;
   color: #fff;
+  font-weight: bolder;
 }
 
-h2,
-h6 {
+.card-body {
   text-align: center;
 }
 
 .main-card {
-  height: 365px;
+  height: 380px;
   width: 330px;
-  margin-top: 25px;
+  margin-top: 22px;
   margin-bottom: 25px;
   background-image: url("https://img.freepik.com/free-photo/cloud-background-with-pastel-colour_66899-1598.jpg?size=626&ext=jpg");
 }
@@ -54,29 +53,26 @@ h6 {
 #main-card-icon {
   font-size: 110px;
   margin-top: 30px;
-  margin-left: 85px;
 }
 
 .temperature {
-  font-size: 27px;
-  margin-left: 110px;
+  font-size: 30px;
 }
 
 .units {
   position: relative;
-  font-size: 14px;
-  top: -12px;
+  top: -14px;
   text-decoration: none;
-  font-weight: bolder;
 }
 
 .card-subtitle,
+.units,
 .main-card-text {
   font-size: 14px;
 }
 
 .main-card-text {
-  margin: 10px 0px 0px 20px;
+  margin-left: 30px;
 }
 
 .active {
@@ -94,15 +90,15 @@ h6 {
 }
 
 .day {
-  margin-left: 20px;
+  margin-left: 17px;
 }
 
 .forecast-icon {
   text-align: center;
-  margin-left: 15px;
+  margin-left: 20px;
   font-size: large;
 }
 
 .maxmin {
-  margin-left: 27px;
+  margin-left: 28px;
 }
