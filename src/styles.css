@@ -93,6 +93,7 @@ h6,
 
 .day {
   margin-left: 17px;
+  font-weight: bolder;
 }
 
 .forecast-icon {
@@ -102,4 +103,5 @@ h6,
 
 .maxmin {
   margin-left: 15px;
+  font-weight: bolder;
 }
