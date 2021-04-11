@@ -135,7 +135,7 @@ function getTemperature(response) {
     mainCard.style.backgroundImage =
       "url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/baby-blue-clouds-susan-bryant.jpg')";
   } else if (weatherID >= 800) {
-    mainIcon.setAttribute("click", "fas fa-cloud");
+    mainIcon.setAttribute("class", "fas fa-cloud");
     mainCard.style.backgroundImage =
       "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
   }
