@@ -200,8 +200,8 @@ function getForecast(response) {
             </div>
             <div class="col">
               <p class="maxmin">
-                <span class="max">${Math.round(forecast.temp.max)}</span>° | 
-                <span class="min">${Math.round(forecast.temp.min)}</span>°
+                <span class="max">${Math.round(forecast.temp.max)}°</span> | 
+                <span class="min">${Math.round(forecast.temp.min)}°</span>
               </p>
             </div>
           </div>`;
