@@ -125,17 +125,17 @@ function getTemperature(response) {
   } else if (weatherID <= 600 && weatherID < 700) {
     mainIcon.setAttribute("class", "far fa-snowflake");
     mainCard.style.backgroundImage =
-      "url('https://i.pinimg.com/originals/2e/34/bc/2e34bc8d1d833ad0bee25f7e276c59cb.jpg')";
+      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID <= 700 && weatherID < 800) {
     mainIcon.setAttribute("class", "fas fa-smog");
     mainCard.style.backgroundImage =
-      "url('https://i.pinimg.com/originals/2e/34/bc/2e34bc8d1d833ad0bee25f7e276c59cb.jpg')";
+      "url('https://cdn.shopify.com/s/files/1/2084/6971/products/27clouds-11x14_2048x2048.jpg?v=1516401513')";
   } else if (weatherID === 800) {
     mainIcon.setAttribute("class", "fas fa-sun");
     mainCard.style.backgroundImage =
       "url('https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/baby-blue-clouds-susan-bryant.jpg')";
   } else if (weatherID >= 800) {
-    mainIcon.setAttribute("class", "fas fa-cloud");
+    mainIcon.setAttribute("click", "fas fa-cloud");
     mainCard.style.backgroundImage =
       "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
   }
@@ -200,8 +200,8 @@ function getForecast(response) {
             </div>
             <div class="col">
               <p class="maxmin">
-                <span class="max">${Math.round(forecast.temp.max)}°</span> | 
-                <span class="min">${Math.round(forecast.temp.min)}°</span>
+                <span class="max">${Math.round(forecast.temp.max)}</span>° | 
+                <span class="min">${Math.round(forecast.temp.min)}</span>°
               </p>
             </div>
           </div>`;
