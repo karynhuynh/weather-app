@@ -90,6 +90,11 @@ h6,
   text-transform: capitalize;
 }
 
+.main-card,
+.forecast {
+  z-index: 100;
+}
+
 .day {
   margin-left: 17px;
   font-weight: bolder;
