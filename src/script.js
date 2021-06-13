@@ -198,7 +198,7 @@ function getForecast(response) {
             <div class="col forecast-icon">
               ${icon}
             </div>
-            <div class="col">
+            <div class="col px-0">
               <p class="maxmin">
                 <span class="max">${Math.round(forecast.temp.max)}</span>° | 
                 <span class="min">${Math.round(forecast.temp.min)}</span>°
