@@ -78,9 +78,9 @@ h6,
   margin-left: 30px;
 }
 
-/* .active {
+.active {
   cursor: default;
-} */
+}
 
 .active:hover,
 #celsius,
