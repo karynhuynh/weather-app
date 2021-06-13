@@ -279,6 +279,9 @@ function convertToFahrenheit(event) {
 
 // Convert fahrenheit to celsius-main card
 
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
+
 function convertToCelsius(event) {
   event.preventDefault();
   let displayTemperature = document.querySelector(".temperature");
@@ -300,9 +303,6 @@ let celsius = null;
 
 let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
 
 function convertForecastTemp(unit) {
   let maxTemperature = document.querySelectorAll(".max");
