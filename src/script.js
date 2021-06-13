@@ -221,14 +221,14 @@ function search(city) {
   fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
+let form = document.querySelector("#input-form");
+form.addEventListener("submit", handleSubmit);
+
 function handleSubmit(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input");
   search(city.value);
 }
-
-let form = document.querySelector("#input-form");
-form.addEventListener("submit", handleSubmit);
 
 // Search by coordinates
 
@@ -249,15 +249,21 @@ function getCoordinates(position) {
   fahrenheitLink.addEventListener("click", convertToFahrenheit);
 }
 
+let currentLocation = document.querySelector("#current-location-button");
+currentLocation.addEventListener("click", getNavigator);
+
 function getNavigator(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(getCoordinates);
 }
 
-let currentLocation = document.querySelector("#current-location-button");
-currentLocation.addEventListener("click", getNavigator);
-
 //Convert celsius to fahrenheit-main card
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
 
 let celsiusTemperature = null;
 
@@ -322,11 +328,5 @@ function convertForecastTemp(unit) {
     });
   }
 }
-
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
 
 search("San Francisco");
