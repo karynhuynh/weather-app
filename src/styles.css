@@ -14,6 +14,7 @@ body {
   display: block;
   margin: 0 auto;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2), 0px 0px 5px rgba(0, 0, 0, 0.2);
+  z-index: 100;
 }
 
 .weather {
@@ -35,7 +36,6 @@ h6,
 .sunrise,
 .sunset {
   color: #fff;
-  font-weight: bolder;
 }
 
 .card-body,
@@ -49,6 +49,7 @@ h6,
   width: 330px;
   margin-top: 22px;
   margin-bottom: 25px;
+  font-weight: bolder;
 }
 
 #main-card-icon {
@@ -76,9 +77,9 @@ h6,
   margin-left: 30px;
 }
 
-.active {
+/* .active {
   cursor: default;
-}
+} */
 
 .active:hover,
 #celsius,
@@ -107,5 +108,9 @@ h6,
 
 .maxmin {
   margin-left: 15px;
+}
+
+.max,
+.min {
   font-weight: bolder;
 }

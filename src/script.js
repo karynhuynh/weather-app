@@ -137,7 +137,7 @@ function getTemperature(response) {
   } else if (weatherID >= 800) {
     mainIcon.setAttribute("click", "fas fa-cloud");
     mainCard.style.backgroundImage =
-      "url('https://img.buzzfeed.com/buzzfeed-static/static/2021-03/10/15/enhanced/682fe1e39732/enhanced-14446-1615391451-10.jpg')";
+      "url('https://images.photowall.com/products/63343/sunny-sky-1.jpg?h=699&q=85')";
   }
 
   let longitude = response.data.coord.lon;
@@ -259,12 +259,6 @@ function getNavigator(event) {
 
 //Convert celsius to fahrenheit-main card
 
-let fahrenheitLink = document.querySelector("#fahrenheit");
-fahrenheitLink.addEventListener("click", convertToFahrenheit);
-
-let celsiusLink = document.querySelector("#celsius");
-celsiusLink.addEventListener("click", convertToCelsius);
-
 let celsiusTemperature = null;
 
 function convertToFahrenheit(event) {
@@ -303,6 +297,12 @@ function convertToCelsius(event) {
 // Convert forecast max and min temp
 
 let celsius = null;
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", convertToCelsius);
 
 function convertForecastTemp(unit) {
   let maxTemperature = document.querySelectorAll(".max");
